@@ -8,11 +8,15 @@ class vec3:
 
     def __getitem__(self, i):
         assert i >= 0 and i <= 3
-        return self._v[i]
+        return self._v[i].item()
 
     def __add__(self, other):
         assert type(other) == vec3
         return vec3(self._v + other._v)
+
+    def __sub__(self, other):
+        assert issubclass(type(other), vec3)
+        return vec3(self._v - other._v)
     
     def __div__(self, other):
         assert type(other) == int or type(other) == float
@@ -36,6 +40,10 @@ class vec3:
 
     def z(self):
         return self[2]
+
+    def dot(self, other):
+        assert type(other) == vec3
+        return np.dot(self._v, other._v)
 
     def unit_vec(self):
         return vec3(self._v / self.length())

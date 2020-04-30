@@ -13,10 +13,3 @@ class ray(vec3):
 
     def unit_direction(self):
         return self.direction.unit_vec()
-
-    def calc_colour(self):
-        unit_dir = self.unit_direction()
-        t = 0.5*(unit_dir.y() + 1.0).item()
-        white_grad = colour([1, 1, 1])*(1.0 - t)
-        blue_grad = colour([0.5, 0.7, 1]) * t
-        return colour(white_grad + blue_grad)
