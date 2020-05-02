@@ -1,3 +1,4 @@
+from math import sqrt
 from hittable import hittable
 
 class sphere(hittable):
@@ -13,4 +14,9 @@ class sphere(hittable):
         c = origin_to_center.dot(origin_to_center) - self.r ** 2
 
         discriminant = b*b - 4*a*c
-        return discriminant > 0
+        if discriminant < 0:
+            # no roots, ray did not hit
+            return -1
+        else:
+            # one or two roots, return closest intersection to camera (first intersection)
+            return (((-b) - sqrt(discriminant)) / (2.0*a)).item()

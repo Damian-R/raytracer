@@ -6,10 +6,10 @@ class colour(vec3):
             super().__init__(vals)
             self._v = (self._v * 256).astype(int)
         elif type(vals) == vec3:
-            self._v = vals._v.astype(int)
+            self._v = (vals._v * 256).astype(int)
         else:
-            raise "Colours must be initialized with either a list or vec3"
-    
+            raise 'Colour must be initalized with vec3 or list'
+
     def r(self):
         return self[0]
 
@@ -21,3 +21,4 @@ class colour(vec3):
 
     def write_colour(self):
         print('{} {} {}'.format(self.r(), self.g(), self.b()))
+

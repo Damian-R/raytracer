@@ -15,14 +15,17 @@ class scene:
 
     def get_ray_colour(self, ray):
         for obj in self.objects:
-            if obj.hit(ray):
-                return colour([1, 0, 0])
-        
+            t = obj.hit(ray)
+            if t > 0:
+                norm = ray(t) - obj
+
+                return colour(vec3([norm.x() + 1.0, norm.y() + 1.0, norm.z() + 1.0])*0.5)
+
         unit_dir = ray.unit_direction()
         
         t = 0.5*(unit_dir.y() + 1.0) # scale y direction to [0, 1.0]
-        white_grad = colour([1, 1, 1])*t
-        blue_grad = colour([0.5, 0.7, 1.0])*(1.0 - t)
+        white_grad = vec3([1, 1, 1])*t
+        blue_grad = vec3([0.5, 0.7, 1.0])*(1.0 - t)
         return colour(white_grad + blue_grad) # linear interpolation blue/white
 
     def draw_scene(self):

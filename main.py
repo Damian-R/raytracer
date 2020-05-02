@@ -4,7 +4,7 @@ from camera import camera
 from scene import scene
 from sphere import sphere
 
-cam = camera()
+cam = camera(width=200, height=100)
 
 # ppm header
 print('P3 {} {} {}'.format(cam.width, cam.height, 255))

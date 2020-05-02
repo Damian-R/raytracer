@@ -8,8 +8,8 @@ class ray(vec3):
         self.direction = d
 
     def __call__(self, t):
-        assert type(t) == float
-        return o + d*t
+        assert type(t) == float or type(t) == int
+        return self.origin + self.direction*t
 
     def unit_direction(self):
         return self.direction.unit_vec()
