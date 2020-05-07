@@ -18,7 +18,7 @@ class vec3:
         assert issubclass(type(other), vec3)
         return vec3(self._v - other._v)
     
-    def __div__(self, other):
+    def __truediv__(self, other):
         assert type(other) == int or type(other) == float
         return vec3(self._v / other)
 
@@ -31,6 +31,9 @@ class vec3:
 
     def length(self):
         return sqrt(np.sum(np.square(self._v)).item())
+
+    def length_sq(self):
+        return self.length()**2
 
     def x(self):
         return self[0]

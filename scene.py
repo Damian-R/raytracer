@@ -16,6 +16,7 @@ class scene:
     def get_ray_colour(self, ray):
         for obj in self.objects:
             t = obj.hit(ray)
+
             if t > 0:
                 norm = ray(t) - obj
 
