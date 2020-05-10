@@ -29,6 +29,9 @@ class vec3:
     def __str__(self):
         return str(self._v)
 
+    def __neg__(self):
+        return vec3(self._v * -1)
+
     def length(self):
         return sqrt(np.sum(np.square(self._v)).item())
 

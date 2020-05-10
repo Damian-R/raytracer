@@ -5,6 +5,13 @@ class hit_record:
         self.p = p
         self.norm = norm
         self.t = t
+    
+    def set_intersection_direction(self, ray):
+        if ray.direction.dot(self.norm) < 0:
+            self.front_face = True
+        else:
+            self.front_face = False
+            self.norm = -self.norm
 
 
 class hittable(vec3):

@@ -1,3 +1,4 @@
+import sys
 from ray import ray
 from vec3 import vec3
 from tqdm import tqdm
@@ -15,11 +16,9 @@ class scene:
 
     def get_ray_colour(self, ray):
         for obj in self.objects:
-            t = obj.hit(ray)
-
-            if t > 0:
-                norm = ray(t) - obj
-
+            hit_rec = obj.hit(ray)
+            if hit_rec:
+                norm = hit_rec.norm
                 return colour(vec3([norm.x() + 1.0, norm.y() + 1.0, norm.z() + 1.0])*0.5)
 
         unit_dir = ray.unit_direction()
