@@ -19,6 +19,11 @@ class colour(vec3):
     def b(self):
         return self[2]
 
-    def write_colour(self):
-        print('{} {} {}'.format(self.r(), self.g(), self.b()))
+    def write_colour(self, samples_per_pixel):
+        scale = 1.0 / samples_per_pixel # antialiasing setting
+        r = int(self.r() * scale)
+        g = int(self.g() * scale)
+        b = int(self.b() * scale)
+
+        print('{} {} {}'.format(min(r, 256), min(g, 256), min(b, 256)))
 
