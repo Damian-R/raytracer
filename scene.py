@@ -46,8 +46,8 @@ class scene:
     def draw_scene(self):
         for i in tqdm(range(self.cam.height)):
             for j in range(self.cam.width):
-                u = (self.cam.width - j) / self.cam.width
-                v = i / self.cam.height
+                u = j / self.cam.width
+                v = (self.cam.height - i) / self.cam.height
                 r = ray(self.cam.origin, self.cam.screen['ll_corner'] + self.cam.screen['hor']*u + self.cam.screen['vert']*v)
 
                 colour = self.get_ray_colour(r)

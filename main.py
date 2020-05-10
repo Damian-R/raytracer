@@ -20,7 +20,7 @@ print('P3 {} {} {}'.format(cam.width, cam.height, 255))
 
 main_scene = scene(cam)
 s1 = sphere([0, 0, -1], 0.5)
-s2 = sphere([1, 0, -2], 0.5)
+s2 = sphere([0, -100.5, -2], 100)
 main_scene.add_object(s1)
 main_scene.add_object(s2)
 
