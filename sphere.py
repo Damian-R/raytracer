@@ -20,13 +20,14 @@ class sphere(hittable):
             root2 = ((-h_b + sqrt(discriminant))/a).item()
 
             if root1 > t_min and root1 < t_max:
-                hit_rec = hit_record(ray(root1), (ray(root1) - self) / self.r, root1)
-                hit_rec.set_intersection_direction(ray)
-                return hit_rec
+                return self.create_hit_record(ray, root1)
             if root2 > t_min and root2 < t_max:
-                hit_rec = hit_record(ray(root2), (ray(root2) - self) / self.r, root2)
-                hit_rec.set_intersection_direction(ray)
-                return hit_rec 
+                return self.create_hit_record(ray, root2)
         else:
             # no roots, ray missed
             return False
+        
+    def create_hit_record(self, ray, root):
+        hit_rec = hit_record(ray(root), (ray(root) - self) / self.r, root)
+        hit_rec.set_intersection_direction(ray)
+        return hit_rec

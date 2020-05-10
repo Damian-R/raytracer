@@ -14,19 +14,34 @@ class scene:
         assert issubclass(type(obj), hittable)
         self.objects.append(obj)
 
-    def get_ray_colour(self, ray):
-        for obj in self.objects:
-            hit_rec = obj.hit(ray)
-            if hit_rec:
-                norm = hit_rec.norm
-                return colour(vec3([norm.x() + 1.0, norm.y() + 1.0, norm.z() + 1.0])*0.5)
-
+    def background(self, ray):
         unit_dir = ray.unit_direction()
         
         t = 0.5*(unit_dir.y() + 1.0) # scale y direction to [0, 1.0]
         white_grad = vec3([1, 1, 1])*t
         blue_grad = vec3([0.5, 0.7, 1.0])*(1.0 - t)
         return colour(white_grad + blue_grad) # linear interpolation blue/white
+
+    def get_closest_obj_intersection(self, ray):
+        closest_object = float('inf')
+        closest_rec = None
+
+        for obj in self.objects:
+            hit_rec = obj.hit(ray, t_min=0, t_max=closest_object)
+            if hit_rec:
+                closest_object = hit_rec.t
+                closest_rec = hit_rec
+        return closest_rec
+
+
+    def get_ray_colour(self, ray):
+        closest_object = self.get_closest_obj_intersection(ray)
+         
+        if closest_object:
+            return colour((closest_object.norm + vec3([1, 1, 1]))*0.5)
+
+        return self.background(ray)
+        
 
     def draw_scene(self):
         for i in tqdm(range(self.cam.height)):
