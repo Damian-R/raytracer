@@ -37,7 +37,8 @@ class scene:
 
     def get_ray_colour(self, r, rem_depth):
         if rem_depth == 0:
-            return colour([1, 0, 0])
+            return colour([0, 0, 0])
+
         closest_object = self.get_closest_obj_intersection(r)
         
         if closest_object:

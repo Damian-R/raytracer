@@ -1,12 +1,12 @@
 from vec3 import vec3
+from math import sqrt
 
 class colour(vec3):
     def __init__(self, vals=[0, 0, 0]):
         if type(vals) == list:
             super().__init__(vals)
-            self._v = self._v * 256
         elif type(vals) == vec3:
-            self._v = vals._v * 256
+            self._v = vals._v
         else:
             raise 'Colour must be initalized with vec3 or list'
 
@@ -21,9 +21,9 @@ class colour(vec3):
 
     def write_colour(self, samples_per_pixel):
         scale = 1.0 / samples_per_pixel # antialiasing setting
-        r = int(self.r() * scale)
-        g = int(self.g() * scale)
-        b = int(self.b() * scale)
+        r = int(256 * sqrt(self.r() * scale))
+        g = int(256 * sqrt(self.g() * scale))
+        b = int(256 * sqrt(self.b() * scale))
 
         print('{} {} {}'.format(min(r, 256), min(g, 256), min(b, 256)))
 
