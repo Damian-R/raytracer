@@ -3,7 +3,7 @@ from vec3 import vec3
 class hit_record:
     def __init__(self, p, norm, t):
         self.p = p
-        self.norm = norm
+        self.norm = norm.unit_vec()
         self.t = t
     
     def set_intersection_direction(self, ray):

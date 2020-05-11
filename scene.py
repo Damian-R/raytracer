@@ -10,6 +10,7 @@ class scene:
     def __init__(self, camera):
         self.cam = camera
         self.objects = []
+        self.max_depth = 50 
     
     def add_object(self, obj):
         assert issubclass(type(obj), hittable)
@@ -28,20 +29,22 @@ class scene:
         closest_rec = None
 
         for obj in self.objects:
-            hit_rec = obj.hit(ray, t_min=0, t_max=closest_object)
+            hit_rec = obj.hit(ray, t_min=0.001, t_max=closest_object)
             if hit_rec:
                 closest_object = hit_rec.t
                 closest_rec = hit_rec
         return closest_rec
 
-
-    def get_ray_colour(self, ray):
-        closest_object = self.get_closest_obj_intersection(ray)
-         
+    def get_ray_colour(self, r, rem_depth):
+        if rem_depth == 0:
+            return colour([1, 0, 0])
+        closest_object = self.get_closest_obj_intersection(r)
+        
         if closest_object:
-            return (closest_object.norm + vec3([1, 1, 1]))*0.5
+            target = closest_object.p + closest_object.norm + vec3.random_in_unit_sphere()
+            return self.get_ray_colour(ray(closest_object.p, target - closest_object.p), rem_depth-1)*0.5
 
-        return self.background(ray)
+        return self.background(r)
     
     def random(self):
         if self.cam.samples_per_pixel > 1:
@@ -58,7 +61,7 @@ class scene:
                     v = (self.cam.height - i + self.random()) / (self.cam.height-1)
                     r = self.cam.get_ray(u, v) 
 
-                    pixel += self.get_ray_colour(r)
+                    pixel += self.get_ray_colour(r, self.max_depth)
                 colour(pixel).write_colour(self.cam.samples_per_pixel)
 
 

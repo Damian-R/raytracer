@@ -1,5 +1,6 @@
 import numpy as np
-from math import sqrt
+import random
+from math import sqrt, pi, cos, sin
 
 class vec3:
     def __init__(self, vals=[0, 0, 0]):
@@ -53,3 +54,15 @@ class vec3:
 
     def unit_vec(self):
         return vec3(self._v / self.length())
+
+    @staticmethod
+    def random(v_min, v_max):
+        return vec3([ random.uniform(v_min, v_max), random.uniform(v_min, v_max), random.uniform(v_min, v_max) ])
+
+    @staticmethod
+    def random_in_unit_sphere():
+        a = random.uniform(0, 2*pi)
+        z = random.uniform(-1, 1)
+        r = sqrt(1 - z**2)
+        return vec3([ r*cos(a), r*sin(a), z ])
+

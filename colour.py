@@ -4,9 +4,9 @@ class colour(vec3):
     def __init__(self, vals=[0, 0, 0]):
         if type(vals) == list:
             super().__init__(vals)
-            self._v = (self._v * 256).astype(int)
+            self._v = self._v * 256
         elif type(vals) == vec3:
-            self._v = (vals._v * 256).astype(int)
+            self._v = vals._v * 256
         else:
             raise 'Colour must be initalized with vec3 or list'
 
