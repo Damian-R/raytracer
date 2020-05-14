@@ -29,7 +29,7 @@ class scene:
         closest_rec = None
 
         for obj in self.objects:
-            hit_rec = obj.hit(ray, t_min=0.001, t_max=closest_object)
+            hit_rec = obj.hit(ray, t_min=0.0001, t_max=closest_object)
             if hit_rec:
                 closest_object = hit_rec.t
                 closest_rec = hit_rec

@@ -1,40 +1,36 @@
-import numpy as np
 import random
 from math import sqrt, pi, cos, sin
 
 class vec3:
     def __init__(self, vals=[0, 0, 0]):
         assert len(vals) == 3
-        self._v = np.array(vals)
+        self._v = vals
 
     def __getitem__(self, i):
         assert i >= 0 and i <= 3
-        return self._v[i].item()
+        return self._v[i]
 
     def __add__(self, other):
         assert type(other) == vec3
-        return vec3(self._v + other._v)
+        return vec3([self._v[0] + other._v[0], self._v[1] + other._v[1], self._v[2] + other._v[2]])
 
     def __sub__(self, other):
         assert issubclass(type(other), vec3)
-        return vec3(self._v - other._v)
+        return vec3([self._v[0] - other._v[0], self._v[1] - other._v[1], self._v[2] - other._v[2]])
     
     def __truediv__(self, other):
         assert type(other) == int or type(other) == float
-        return vec3(self._v / other)
+        return vec3([self._v[0] / other, self._v[1] / other, self._v[2] / other])
 
     def __mul__(self, other):
         assert type(other) == int or type(other) == float
-        return vec3(self._v * other)
-
-    def __str__(self):
-        return str(self._v)
+        return vec3([self._v[0] * other, self._v[1] * other, self._v[2] * other])
 
     def __neg__(self):
-        return vec3(self._v * -1)
+        return self._v * -1
 
     def length(self):
-        return sqrt(np.sum(np.square(self._v)).item())
+        return sqrt(self._v[0]**2 + self._v[1]**2 + self._v[2]**2)
 
     def length_sq(self):
         return self.length()**2
@@ -50,10 +46,10 @@ class vec3:
 
     def dot(self, other):
         assert type(other) == vec3
-        return np.dot(self._v, other._v)
+        return self._v[0]*other._v[0] + self._v[1]*other._v[1] + self._v[2]*other._v[2]
 
     def unit_vec(self):
-        return vec3(self._v / self.length())
+        return self / self.length()
 
     @staticmethod
     def random(v_min, v_max):
