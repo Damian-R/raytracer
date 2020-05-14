@@ -40,7 +40,7 @@ class scene:
             return colour([0, 0, 0])
 
         closest_object = self.get_closest_obj_intersection(r)
-        
+
         if closest_object:
             target = closest_object.p + closest_object.norm + vec3.random_in_unit_sphere()
             return self.get_ray_colour(ray(closest_object.p, target - closest_object.p), rem_depth-1)*0.5

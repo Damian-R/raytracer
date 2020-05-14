@@ -15,5 +15,5 @@ class hit_record:
 
 
 class hittable(vec3):
-    def hit(self, ray, min_t, max_t, hr):
+    def hit(self, ray, t_min, t_max, hr):
         raise NotImplementedError
