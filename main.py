@@ -4,6 +4,7 @@ from camera import camera
 from scene import scene
 from sphere import sphere
 from argparse import ArgumentParser
+from material import diffuse
 
 parser = ArgumentParser()
 parser.add_argument('--width', type=int)
@@ -22,8 +23,8 @@ cam = camera(width=CAM_WIDTH, height=CAM_HEIGHT, samples_per_pixel=SAMPLES_PER_P
 print('P3 {} {} {}'.format(cam.width, cam.height, 255))
 
 main_scene = scene(cam)
-s1 = sphere([0, 0, -1], 0.5)
-s2 = sphere([0, -100.5, -2], 100)
+s1 = sphere([0, 0, -1], 0.5, mat=diffuse(colour([0.7, 0.3, 0.3])))
+s2 = sphere([0, -100.5, -2], 100, mat=diffuse(colour([0.8, 0.8, 0])))
 main_scene.add_object(s1)
 main_scene.add_object(s2)
 

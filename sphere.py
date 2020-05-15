@@ -1,10 +1,14 @@
 from math import sqrt
 from hittable import hittable, hit_record
+from material import material, diffuse
+from colour import colour
+
 
 class sphere(hittable):
-    def __init__(self, vals=[0, 0, 0], r=0):
+    def __init__(self, vals=[0, 0, 0], r=0, mat=diffuse(colour([1, 1, 1]))):
         super().__init__(vals)
         self.r = r
+        self.mat = mat
 
     def hit(self, ray, t_min=0, t_max=float('inf')):
         origin_to_center = ray.origin - self
@@ -27,5 +31,6 @@ class sphere(hittable):
         
     def create_hit_record(self, ray, root):
         hit_rec = hit_record(ray(root), (ray(root) - self) / self.r, root)
+        hit_rec.mat = self.mat
         hit_rec.set_intersection_direction(ray)
         return hit_rec

@@ -42,8 +42,10 @@ class scene:
         closest_object = self.get_closest_obj_intersection(r)
 
         if closest_object:
-            target = closest_object.p + closest_object.norm + vec3.random_in_unit_sphere()
-            return self.get_ray_colour(ray(closest_object.p, target - closest_object.p), rem_depth-1)*0.5
+            scattered_rec = closest_object.mat.scatter(r, closest_object)
+            if scattered_rec:
+                return colour(scattered_rec.colour * self.get_ray_colour(scattered_rec.scattered, rem_depth-1))
+            return colour([0, 0, 0])
 
         return self.background(r)
     
